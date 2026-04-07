@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔬 Instrument Booking System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --accent: #3b82f6;
+    --accent-light: #eff6ff;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --warning: #eab308;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+  .container { max-width: 1020px; margin: 0 auto; padding: 28px 20px; }
+
+  /* ── Status banner ── */
+  .status-banner {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-banner.connected { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+  .status-banner.disconnected { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+  .status-banner.loading { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .status-dot.green { background: var(--success); }
+  .status-dot.red { background: var(--danger); }
+  .status-dot.blue { background: var(--accent); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 22px; flex-wrap: wrap; gap: 12px;
+  }
+  .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+  .header .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .week-nav { display: flex; gap: 6px; }
+  .week-nav button {
+    padding: 8px 18px; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface); cursor: pointer; font-size: 13px; font-weight: 500;
+    color: var(--text-secondary); font-family: inherit; transition: background 0.15s, border-color 0.15s;
+  }
+  .week-nav button:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+  .week-nav button.active { font-weight: 700; color: var(--accent); border-color: var(--accent); }
+
+  .stats-row { display: flex; gap: 12px; margin-bottom: 22px; }
+  .stat-card {
+    flex: 1; background: var(--surface); border-radius: 12px;
+    padding: 14px 16px; border: 1px solid var(--border-light);
+  }
+  .stat-num { font-size: 24px; font-weight: 700; display: block; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; display: block; }
+
+  .calendar-wrap {
+    overflow-x: auto; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--surface);
+  }
+  .calendar-grid {
+    display: grid; grid-template-columns: 62px repeat(7, 1fr); min-width: 720px;
+  }
+  .corner-cell { padding: 8px; border-bottom: 2px solid var(--border); background: #f8fafc; }
+  .day-header {
+    padding: 10px 4px; text-align: center; border-bottom: 2px solid var(--border);
+    background: #f8fafc; display: flex; flex-direction: column; gap: 2px;
+  }
+  .day-header.today { background: var(--accent-light); border-bottom-color: var(--accent); }
+  .day-name { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .day-date { font-size: 18px; font-weight: 700; color: #334155; }
+  .day-header.today .day-date { color: var(--accent); }
+  .time-cell {
+    padding: 13px 8px; font-size: 11px; font-weight: 600; color: var(--text-muted);
+    text-align: right; border-bottom: 1px solid var(--border-light); background: #f8fafc; height: 50px;
+  }
+  .slot-cell {
+    position: relative; height: 50px; border-bottom: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light); cursor: pointer; transition: background 0.12s;
+  }
+  .slot-cell:hover { background: #f0f7ff; }
+  .slot-cell.today-col { background: #fbfcff; }
+  .slot-cell.today-col:hover { background: #eef4ff; }
+  .slot-cell .plus {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 17px; color: #cbd5e1; opacity: 0; transition: opacity 0.15s; pointer-events: none;
+  }
+  .slot-cell:hover .plus { opacity: 1; }
+
+  .booking-block {
+    position: absolute; top: 1px; left: 2px; right: 2px; border-radius: 6px;
+    padding: 4px 7px; color: #fff; cursor: pointer; z-index: 2; overflow: hidden;
+    display: flex; flex-direction: column; gap: 1px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15); transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .booking-block:hover { transform: scale(1.02); box-shadow: 0 3px 10px rgba(0,0,0,0.2); }
+  .booking-block .b-user { font-weight: 700; font-size: 12px; line-height: 1.2; }
+  .booking-block .b-time { font-size: 10px; opacity: 0.9; }
+  .booking-block .b-purpose { font-size: 10px; opacity: 0.8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .list-section { margin-top: 26px; }
+  .list-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #334155; }
+  .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 10px; }
+  .list-card {
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    background: #f8fafc; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--border-light); transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .list-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(59,130,246,0.08); }
+  .list-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .list-user { font-weight: 600; font-size: 14px; }
+  .list-info { font-size: 12px; color: var(--text-secondary); }
+  .list-purpose { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.4); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--surface); border-radius: 16px; padding: 28px; max-width: 420px;
+    width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    transform: translateY(10px); transition: transform 0.2s;
+  }
+  .overlay.open .modal { transform: translateY(0); }
+  .modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .modal-date { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+  .modal label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; margin-top: 14px; }
+  .modal input, .modal select {
+    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 14px; outline: none; font-family: inherit; transition: border-color 0.15s;
+  }
+  .modal input:focus, .modal select:focus { border-color: var(--accent); }
+  .time-row { display: flex; gap: 12px; align-items: flex-end; margin-top: 4px; }
+  .time-row > div { flex: 1; }
+  .time-sep { font-size: 18px; color: var(--text-muted); padding-bottom: 10px; }
+  .conflict-msg {
+    margin-top: 16px; padding: 10px 14px; background: #fef2f2;
+    border: 1px solid #fecaca; border-radius: 8px; color: var(--danger); font-size: 13px; font-weight: 600;
+  }
+  .modal-btns { display: flex; gap: 10px; margin-top: 24px; }
+  .btn-secondary, .btn-primary, .btn-danger {
+    flex: 1; padding: 10px 0; border-radius: 10px; cursor: pointer;
+    font-size: 14px; font-weight: 600; font-family: inherit; transition: opacity 0.15s;
+  }
+  .btn-secondary { border: 1.5px solid var(--border); background: var(--surface); color: var(--text-secondary); }
+  .btn-primary { border: none; background: var(--accent); color: #fff; }
+  .btn-danger { border: none; background: var(--danger); color: #fff; }
+  .btn-secondary:hover, .btn-primary:hover, .btn-danger:hover { opacity: 0.85; }
+  .cancel-note { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+  .detail-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); margin-top: 16px; }
+  .detail-banner { height: 8px; }
+  .detail-body { padding: 16px 18px; }
+  .detail-user { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .detail-field { font-size: 14px; color: var(--text-secondary); margin: 6px 0; }
+
+  .notif-container {
+    position: fixed; top: 16px; right: 16px; z-index: 200;
+    display: flex; flex-direction: column; gap: 8px; max-width: 360px;
+  }
+  .notif { padding: 12px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; box-shadow: 0 2px 8px rgba(0,0,0,0.1); animation: notifIn 0.3s ease; }
+  .notif.success { background: #f0fdf4; border-left: 4px solid var(--success); color: #166534; }
+  .notif.error { background: #fef2f2; border-left: 4px solid var(--danger); color: #991b1b; }
+  .notif.cancel { background: #fefce8; border-left: 4px solid var(--warning); color: #854d0e; }
+  @keyframes notifIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+  .empty-state .icon { font-size: 36px; margin-bottom: 8px; }
+
+  @media (max-width: 640px) { .stats-row { flex-direction: column; } .header { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="notif-container" id="notifContainer"></div>
+
+  <!-- Connection status -->
+  <div class="status-banner loading" id="statusBanner">
+    <div class="status-dot blue" id="statusDot"></div>
+    <span id="statusText">Connecting to database...</span>
+  </div>
+
+  <div class="header">
+    <div>
+      <h1>🔬 Instrument Booking</h1>
+      <div class="subtitle">Click an empty slot to book · Click a booking to view details · Real-time sync across all users</div>
+    </div>
+    <div class="week-nav">
+      <button onclick="changeWeek(-1)">‹ Prev</button>
+      <button onclick="changeWeek(0)" class="active" id="btnThisWeek">This Week</button>
+      <button onclick="changeWeek(1)">Next ›</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <span class="stat-num" id="statCount">0</span>
+      <span class="stat-label">Bookings This Week</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statUsers">0</span>
+      <span class="stat-label">Active Users</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="statHours">0h</span>
+      <span class="stat-label">Hours Booked</span>
+    </div>
+  </div>
+
+  <div class="calendar-wrap">
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </div>
+
+  <div id="listSection"></div>
+</div>
+
+<!-- Create Modal -->
+<div class="overlay" id="createOverlay" onclick="closeModal('create')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h2>📅 New Booking</h2>
+    <div class="modal-date" id="createDate"></div>
+    <label>Name *</label>
+    <input id="inputName" placeholder="Enter your name">
+    <label>Purpose</label>
+    <input id="inputPurpose" placeholder="Brief description (optional)">
+    <div class="time-row">
+      <div>
+        <label>Start Time</label>
+        <select id="selectStart" onchange="checkConflict()"></select>
+      </div>
+      <span class="time-sep">→</span>
+      <div>
+        <label>End Time</label>
+        <select id="selectEnd" onchange="checkConflict()"></select>
+      </div>
+    </div>
+    <div id="conflictMsg" class="conflict-msg" style="display:none">⚠️ Time conflict! This slot is already booked.</div>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeModal('create')">Cancel</button>
+      <button class="btn-primary" onclick="confirmCreate()">Confirm Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="overlay" id="detailOverlay" onclick="closeModal('detail')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h2>📋 Booking Details</h2>
+    <div class="detail-card">
+      <div class="detail-banner" id="detailBanner"></div>
+      <div class="detail-body" id="detailBody"></div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeModal('detail')">Close</button>
+      <button class="btn-danger" onclick="cancelBooking()">Cancel Booking</button>
+    </div>
+    <div class="cancel-note">All team members will be notified upon cancellation</div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+// ══════════════════════════════════════════
+// Firebase Configuration
+// ══════════════════════════════════════════
+const firebaseConfig = {
+  apiKey: "AIzaSyDjO9Zy3gnbyjxOWfKN3oWu-ysX__N7JOA",
+  authDomain: "time-slot-b5697.firebaseapp.com",
+  databaseURL: "https://time-slot-b5697-default-rtdb.firebaseio.com",
+  projectId: "time-slot-b5697",
+  storageBucket: "time-slot-b5697.firebasestorage.app",
+  messagingSenderId: "400395220956",
+  appId: "1:400395220956:web:f006eaf5181fa4e757c119",
+  measurementId: "G-K63Z5R550T"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const bookingsRef = db.ref('bookings');
+
+// ══════════════════════════════════════════
+// App State
+// ══════════════════════════════════════════
+const HOURS = Array.from({length: 13}, (_, i) => i + 7);
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const COLORS = ['#3b82f6','#ef4444','#10b981','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+
+let bookings = [];
+let weekOffset = 0;
+let currentModalDate = null;
+let currentDetailBooking = null;
+let dbConnected = false;
+
+// ══════════════════════════════════════════
+// Firebase Real-time Listener
+// ══════════════════════════════════════════
+bookingsRef.on('value', (snapshot) => {
+  const data = snapshot.val();
+  bookings = [];
+  if (data) {
+    Object.keys(data).forEach(key => {
+      bookings.push({ id: key, ...data[key] });
+    });
+  }
+  if (!dbConnected) {
+    dbConnected = true;
+    setStatus('connected');
+  }
+  render();
+}, (error) => {
+  console.error('Firebase error:', error);
+  setStatus('disconnected');
+});
+
+// Monitor connection state
+db.ref('.info/connected').on('value', (snap) => {
+  if (snap.val() === true) {
+    setStatus('connected');
+  } else {
+    setStatus('disconnected');
+  }
+});
+
+function setStatus(state) {
+  const banner = document.getElementById('statusBanner');
+  const dot = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  banner.className = 'status-banner ' + (state === 'connected' ? 'connected' : state === 'disconnected' ? 'disconnected' : 'loading');
+  dot.className = 'status-dot ' + (state === 'connected' ? 'green' : state === 'disconnected' ? 'red' : 'blue');
+  text.textContent = state === 'connected' ? '🟢 Connected — data syncs in real-time across all users'
+    : state === 'disconnected' ? '🔴 Disconnected — check your internet connection'
+    : 'Connecting to database...';
+}
+
+// ══════════════════════════════════════════
+// Helpers
+// ══════════════════════════════════════════
+function fmtDate(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function fmtTime(h) { return `${String(h).padStart(2,'0')}:00`; }
+function hashColor(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+  return COLORS[Math.abs(h) % COLORS.length];
+}
+function getWeekDates(offset) {
+  const now = new Date();
+  const day = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((day === 0 ? 7 : day) - 1) + offset * 7);
+  return Array.from({length: 7}, (_, i) => { const d = new Date(monday); d.setDate(monday.getDate() + i); return d; });
+}
+function isToday(d) { return fmtDate(d) === fmtDate(new Date()); }
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function notify(msg, type = 'success') {
+  const container = document.getElementById('notifContainer');
+  const el = document.createElement('div');
+  el.className = `notif ${type}`;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+// ══════════════════════════════════════════
+// Render
+// ══════════════════════════════════════════
+function render() {
+  const dates = getWeekDates(weekOffset);
+  const grid = document.getElementById('calendarGrid');
+  grid.innerHTML = '<div class="corner-cell"></div>';
+
+  dates.forEach((d, i) => {
+    const today = isToday(d) ? ' today' : '';
+    grid.innerHTML += `<div class="day-header${today}"><span class="day-name">${DAYS[i]}</span><span class="day-date">${d.getDate()}</span></div>`;
+  });
+
+  HOURS.forEach(hour => {
+    grid.innerHTML += `<div class="time-cell">${fmtTime(hour)}</div>`;
+    dates.forEach(date => {
+      const dateStr = fmtDate(date);
+      const todayCls = isToday(date) ? ' today-col' : '';
+      const slotBookings = bookings.filter(b => b.date === dateStr && hour >= b.startHour && hour < b.endHour);
+      const firstBookings = slotBookings.filter(b => b.startHour === hour);
+      let cellContent = '';
+      if (slotBookings.length === 0) cellContent = '<div class="plus">+</div>';
+      firstBookings.forEach(b => {
+        const h = (b.endHour - b.startHour) * 50;
+        const purposeHtml = b.purpose ? `<span class="b-purpose">${escHtml(b.purpose)}</span>` : '';
+        cellContent += `<div class="booking-block" style="background:${hashColor(b.user)};height:${h}px;min-height:${h}px" onclick="event.stopPropagation();openDetail('${b.id}')"><span class="b-user">${escHtml(b.user)}</span><span class="b-time">${fmtTime(b.startHour)}-${fmtTime(b.endHour)}</span>${purposeHtml}</div>`;
+      });
+      const clickHandler = slotBookings.length === 0 ? `onclick="openCreate('${dateStr}',${hour})"` : '';
+      const cursorStyle = slotBookings.length === 0 ? '' : 'cursor:default;';
+      grid.innerHTML += `<div class="slot-cell${todayCls}" style="${cursorStyle}" ${clickHandler}>${cellContent}</div>`;
+    });
+  });
+
+  const weekBookings = bookings.filter(b => dates.some(d => fmtDate(d) === b.date));
+  document.getElementById('statCount').textContent = weekBookings.length;
+  document.getElementById('statUsers').textContent = [...new Set(bookings.map(b => b.user))].length;
+  document.getElementById('statHours').textContent = weekBookings.reduce((s, b) => s + (b.endHour - b.startHour), 0) + 'h';
+  renderList();
+}
+
+function renderList() {
+  const section = document.getElementById('listSection');
+  if (bookings.length === 0) {
+    section.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>No bookings yet. Click an empty slot on the calendar to get started.</p></div>';
+    return;
+  }
+  const sorted = [...bookings].sort((a, b) => a.date.localeCompare(b.date) || a.startHour - b.startHour);
+  let html = '<div class="list-section"><h3>📋 All Bookings</h3><div class="list-grid">';
+  sorted.forEach(b => {
+    const purposeHtml = b.purpose ? `<div class="list-purpose">${escHtml(b.purpose)}</div>` : '';
+    html += `<div class="list-card" onclick="openDetail('${b.id}')"><div class="list-dot" style="background:${hashColor(b.user)}"></div><div style="flex:1"><div class="list-user">${escHtml(b.user)}</div><div class="list-info">${b.date} · ${fmtTime(b.startHour)}-${fmtTime(b.endHour)}</div>${purposeHtml}</div></div>`;
+  });
+  html += '</div></div>';
+  section.innerHTML = html;
+}
+
+// ══════════════════════════════════════════
+// Week Navigation
+// ══════════════════════════════════════════
+function changeWeek(dir) {
+  if (dir === 0) weekOffset = 0; else weekOffset += dir;
+  render();
+}
+
+// ══════════════════════════════════════════
+// Create Booking
+// ══════════════════════════════════════════
+function openCreate(dateStr, hour) {
+  currentModalDate = dateStr;
+  const parts = dateStr.split('-');
+  const d = new Date(+parts[0], +parts[1]-1, +parts[2]);
+  const dayName = DAYS[(d.getDay() + 6) % 7];
+  document.getElementById('createDate').textContent = `${dayName}, ${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputPurpose').value = '';
+  const selStart = document.getElementById('selectStart');
+  const selEnd = document.getElementById('selectEnd');
+  selStart.innerHTML = HOURS.map(h => `<option value="${h}" ${h===hour?'selected':''}>${fmtTime(h)}</option>`).join('');
+  const endHour = Math.min(hour + 1, 19);
+  selEnd.innerHTML = HOURS.filter(h => h > hour).map(h => `<option value="${h}" ${h===endHour?'selected':''}>${fmtTime(h)}</option>`).join('');
+  selEnd.innerHTML += `<option value="20" ${endHour===20?'selected':''}>20:00</option>`;
+  document.getElementById('conflictMsg').style.display = 'none';
+  document.getElementById('createOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('inputName').focus(), 100);
+}
+
+function checkConflict() {
+  const sH = +document.getElementById('selectStart').value;
+  const selEnd = document.getElementById('selectEnd');
+  const currentEnd = +selEnd.value;
+  selEnd.innerHTML = HOURS.filter(h => h > sH).map(h => `<option value="${h}">${fmtTime(h)}</option>`).join('');
+  selEnd.innerHTML += '<option value="20">20:00</option>';
+  if (currentEnd > sH) selEnd.value = currentEnd; else selEnd.value = sH + 1;
+  const finalEnd = +selEnd.value;
+  const conflict = bookings.some(b => b.date === currentModalDate && sH < b.endHour && finalEnd > b.startHour);
+  document.getElementById('conflictMsg').style.display = conflict ? 'block' : 'none';
+}
+
+function confirmCreate() {
+  const name = document.getElementById('inputName').value.trim();
+  const purpose = document.getElementById('inputPurpose').value.trim();
+  const sH = +document.getElementById('selectStart').value;
+  const eH = +document.getElementById('selectEnd').value;
+  if (!name) { notify('Please enter your name', 'error'); return; }
+  if (eH <= sH) { notify('End time must be after start time', 'error'); return; }
+  if (bookings.some(b => b.date === currentModalDate && sH < b.endHour && eH > b.startHour)) {
+    notify('⚠️ Time conflict! This slot is already booked.', 'error'); return;
+  }
+
+  // Push to Firebase (auto-generates unique key)
+  bookingsRef.push({
+    date: currentModalDate,
+    startHour: sH,
+    endHour: eH,
+    user: name,
+    purpose: purpose,
+    createdAt: new Date().toISOString()
+  }).then(() => {
+    notify(`✅ Booked! ${name} ${fmtTime(sH)}-${fmtTime(eH)}`);
+  }).catch((err) => {
+    notify('❌ Failed to save. Check your connection.', 'error');
+    console.error(err);
+  });
+
+  closeModal('create');
+}
+
+// ══════════════════════════════════════════
+// View / Cancel Booking
+// ══════════════════════════════════════════
+function openDetail(id) {
+  const b = bookings.find(x => x.id === id);
+  if (!b) return;
+  currentDetailBooking = b;
+  document.getElementById('detailBanner').style.background = hashColor(b.user);
+  document.getElementById('detailBody').innerHTML = `
+    <div class="detail-user">${escHtml(b.user)}</div>
+    <div class="detail-field">📅 ${b.date}</div>
+    <div class="detail-field">🕐 ${fmtTime(b.startHour)} - ${fmtTime(b.endHour)} (${b.endHour - b.startHour} hr)</div>
+    ${b.purpose ? `<div class="detail-field">📝 ${escHtml(b.purpose)}</div>` : ''}`;
+  document.getElementById('detailOverlay').classList.add('open');
+}
+
+function cancelBooking() {
+  if (!currentDetailBooking) return;
+  const b = currentDetailBooking;
+
+  // Remove from Firebase
+  bookingsRef.child(b.id).remove().then(() => {
+    notify(`📧 Cancelled ${b.user}'s booking (${b.date} ${fmtTime(b.startHour)}-${fmtTime(b.endHour)}). All members notified.`, 'cancel');
+  }).catch((err) => {
+    notify('❌ Failed to cancel. Check your connection.', 'error');
+    console.error(err);
+  });
+
+  closeModal('detail');
+}
+
+function closeModal(type) {
+  document.getElementById(type === 'create' ? 'createOverlay' : 'detailOverlay').classList.remove('open');
+}
+
+// Initial render (will be updated when Firebase data arrives)
+render();
+</script>
+</body>
+</html>
