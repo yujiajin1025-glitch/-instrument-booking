@@ -20,26 +20,11 @@
     --success: #22c55e;
     --warning: #f59e0b;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
   .container { max-width: 1120px; margin: 0 auto; padding: 28px 20px; }
 
-  .status-banner {
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .status-banner { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
   .status-banner.connected { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
   .status-banner.disconnected { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
   .status-banner.loading { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
@@ -47,332 +32,92 @@
   .status-dot.green { background: var(--success); }
   .status-dot.red { background: var(--danger); }
   .status-dot.blue { background: var(--accent); animation: pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
 
-  .settings-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-  }
-  .settings-bar label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-  }
-  .settings-bar input {
-    padding: 8px 10px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px;
-    font-family: inherit;
-    width: min(540px, 100%);
-    outline: none;
-  }
+  .settings-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .settings-bar label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+  .settings-bar input { padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; width: min(540px, 100%); outline: none; }
   .settings-bar input:focus { border-color: var(--accent); }
-  .settings-bar button {
-    padding: 8px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    font-family: inherit;
-  }
+  .settings-bar button { padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text-secondary); font-family: inherit; }
   .settings-bar button:hover { border-color: var(--accent); color: var(--accent); }
-  .manage-link {
-    margin-left: auto;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent);
-    cursor: pointer;
-    text-decoration: underline;
-  }
+  .manage-link { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--accent); cursor: pointer; text-decoration: underline; }
 
   .instrument-selector { margin-bottom: 20px; }
-  .instrument-selector h2 {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  .instrument-selector h2 { font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
   .instrument-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-  .instrument-tab {
-    padding: 10px 18px;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    background: var(--surface);
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    font-family: inherit;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .instrument-tab { padding: 10px 18px; border: 2px solid var(--border); border-radius: 10px; background: var(--surface); cursor: pointer; font-size: 14px; font-weight: 700; color: var(--text-secondary); font-family: inherit; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
   .instrument-tab:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
   .instrument-tab.active { border-color: var(--accent); color: #fff; background: var(--accent); }
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; flex-wrap: wrap; gap: 12px; }
   .header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
   .header .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
   .week-nav { display: flex; gap: 6px; }
-  .week-nav button {
-    padding: 8px 18px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-secondary);
-    font-family: inherit;
-  }
+  .week-nav button { padding: 8px 18px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text-secondary); font-family: inherit; }
   .week-nav button:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
 
   .stats-row { display: flex; gap: 12px; margin-bottom: 22px; flex-wrap: wrap; }
-  .stat-card {
-    flex: 1;
-    min-width: 160px;
-    background: var(--surface);
-    border-radius: 12px;
-    padding: 14px 16px;
-    border: 1px solid var(--border-light);
-  }
+  .stat-card { flex: 1; min-width: 140px; background: var(--surface); border-radius: 12px; padding: 14px 16px; border: 1px solid var(--border-light); }
   .stat-num { font-size: 24px; font-weight: 700; display: block; }
   .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; display: block; }
 
-  .calendar-wrap {
-    overflow-x: auto;
-    overflow-y: auto;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    max-height: 72vh;
-  }
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: 72px repeat(7, 1fr);
-    min-width: 860px;
-  }
-  .corner-cell {
-    padding: 8px;
-    border-bottom: 2px solid var(--border);
-    background: #f8fafc;
-    position: sticky;
-    top: 0;
-    z-index: 3;
-  }
-  .day-header {
-    padding: 10px 4px;
-    text-align: center;
-    border-bottom: 2px solid var(--border);
-    background: #f8fafc;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    position: sticky;
-    top: 0;
-    z-index: 3;
-  }
+  .calendar-wrap { overflow-x: auto; overflow-y: auto; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); max-height: 72vh; }
+  .calendar-grid { display: grid; grid-template-columns: 72px repeat(7, 1fr); min-width: 860px; }
+  .corner-cell { padding: 8px; border-bottom: 2px solid var(--border); background: #f8fafc; position: sticky; top: 0; z-index: 3; }
+  .day-header { padding: 10px 4px; text-align: center; border-bottom: 2px solid var(--border); background: #f8fafc; display: flex; flex-direction: column; gap: 2px; position: sticky; top: 0; z-index: 3; }
   .day-header.today { background: var(--accent-light); border-bottom-color: var(--accent); }
-  .day-name {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  .day-name { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .day-date { font-size: 18px; font-weight: 800; color: #334155; }
   .day-header.today .day-date { color: var(--accent); }
-  .time-cell {
-    padding: 9px 8px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-align: right;
-    border-bottom: 1px solid var(--border-light);
-    background: #f8fafc;
-    height: 40px;
-  }
-  .slot-cell {
-    position: relative;
-    height: 40px;
-    border-bottom: 1px solid var(--border-light);
-    border-left: 1px solid var(--border-light);
-    cursor: pointer;
-    transition: background 0.12s;
-  }
+
+  .time-cell { padding: 2px 8px; font-size: 10px; font-weight: 600; color: var(--text-muted); text-align: right; border-bottom: 1px solid var(--border-light); background: #f8fafc; height: 20px; line-height: 16px; }
+  .time-cell.hour-start { border-bottom-color: var(--border); font-weight: 700; font-size: 11px; color: var(--text-secondary); }
+  .time-cell.quarter { color: #d1d5db; font-size: 9px; }
+
+  .slot-cell { position: relative; height: 20px; border-bottom: 1px solid var(--border-light); border-left: 1px solid var(--border-light); cursor: pointer; transition: background 0.12s; }
+  .slot-cell.hour-start-cell { border-bottom-color: var(--border); }
   .slot-cell:hover { background: #f0f7ff; }
   .slot-cell.today-col { background: #fbfcff; }
   .slot-cell.today-col:hover { background: #eef4ff; }
-  .slot-cell .plus {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    color: #cbd5e1;
-    opacity: 0;
-    transition: opacity 0.15s;
-    pointer-events: none;
-  }
+  .slot-cell .plus { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #cbd5e1; opacity: 0; transition: opacity 0.15s; pointer-events: none; }
   .slot-cell:hover .plus { opacity: 1; }
 
-  .booking-block {
-    position: absolute;
-    top: 1px;
-    left: 2px;
-    right: 2px;
-    border-radius: 6px;
-    padding: 4px 6px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 2;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.14);
-    transition: transform 0.1s, box-shadow 0.1s;
-  }
+  .booking-block { position: absolute; top: 0; left: 2px; right: 2px; border-radius: 5px; padding: 2px 5px; color: #fff; cursor: pointer; z-index: 2; overflow: hidden; display: flex; flex-direction: column; gap: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.14); transition: transform 0.1s, box-shadow 0.1s; }
   .booking-block:hover { transform: scale(1.02); box-shadow: 0 3px 10px rgba(0,0,0,0.18); }
-  .booking-block .b-user { font-weight: 700; font-size: 11px; line-height: 1.2; }
+  .booking-block .b-user { font-weight: 700; font-size: 10px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .booking-block .b-time { font-size: 9px; opacity: 0.95; }
-  .booking-block .b-status {
-    font-size: 8px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.45px;
-    padding: 1px 4px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.22);
-    width: fit-content;
-    margin-top: 1px;
-  }
+  .booking-block .b-status { font-size: 7px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.45px; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.22); width: fit-content; }
 
   .list-section { margin-top: 26px; }
   .list-section h3 { font-size: 16px; font-weight: 800; margin-bottom: 12px; color: #334155; }
   .list-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
-  .list-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    background: #f8fafc;
-    border-radius: 10px;
-    cursor: pointer;
-    border: 1px solid var(--border-light);
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
+  .list-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #f8fafc; border-radius: 10px; cursor: pointer; border: 1px solid var(--border-light); transition: border-color 0.15s, box-shadow 0.15s; }
   .list-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(59,130,246,0.08); }
   .list-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .list-user { font-weight: 700; font-size: 14px; }
   .list-info { font-size: 12px; color: var(--text-secondary); }
   .list-purpose { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-  .list-status {
-    font-size: 10px;
-    font-weight: 800;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-top: 4px;
-    display: inline-block;
-  }
+  .list-status { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; margin-top: 4px; display: inline-block; }
   .list-status.booked { background: #dbeafe; color: #1d4ed8; }
   .list-status.active { background: #dcfce7; color: #166534; }
   .list-status.finished { background: #e2e8f0; color: #475569; }
   .list-status.cancelled { background: #fef2f2; color: #991b1b; }
 
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15,23,42,0.4);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    padding: 16px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
+  .overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.4); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
   .overlay.open { opacity: 1; pointer-events: all; }
-  .modal {
-    background: var(--surface);
-    border-radius: 16px;
-    padding: 28px;
-    max-width: 460px;
-    width: 100%;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-    transform: translateY(10px);
-    transition: transform 0.2s;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
+  .modal { background: var(--surface); border-radius: 16px; padding: 28px; max-width: 460px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.15); transform: translateY(10px); transition: transform 0.2s; max-height: 90vh; overflow-y: auto; }
   .overlay.open .modal { transform: translateY(0); }
   .modal h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
   .modal-date { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
-  .modal label {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin-bottom: 6px;
-    margin-top: 14px;
-  }
-  .modal input, .modal select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    font-family: inherit;
-    transition: border-color 0.15s;
-  }
+  .modal label { display: block; font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; margin-top: 14px; }
+  .modal input, .modal select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; transition: border-color 0.15s; }
   .modal input:focus, .modal select:focus { border-color: var(--accent); }
   .time-row { display: flex; gap: 12px; align-items: flex-end; margin-top: 4px; }
   .time-row > div { flex: 1; }
   .time-sep { font-size: 18px; color: var(--text-muted); padding-bottom: 10px; }
-  .conflict-msg {
-    margin-top: 16px;
-    padding: 10px 14px;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    color: var(--danger);
-    font-size: 13px;
-    font-weight: 700;
-  }
+  .conflict-msg { margin-top: 16px; padding: 10px 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: var(--danger); font-size: 13px; font-weight: 700; }
   .modal-btns { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-  .btn {
-    flex: 1;
-    min-width: 100px;
-    padding: 10px 0;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: inherit;
-    transition: opacity 0.15s;
-    text-align: center;
-  }
+  .btn { flex: 1; min-width: 100px; padding: 10px 0; border-radius: 10px; cursor: pointer; font-size: 14px; font-weight: 700; font-family: inherit; transition: opacity 0.15s; text-align: center; }
   .btn:hover { opacity: 0.88; }
   .btn-secondary { border: 1.5px solid var(--border); background: var(--surface); color: var(--text-secondary); }
   .btn-primary { border: none; background: var(--accent); color: #fff; }
@@ -387,103 +132,47 @@
   .detail-field { font-size: 14px; color: var(--text-secondary); margin: 6px 0; }
 
   .manage-list { margin: 16px 0; }
-  .manage-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    margin-bottom: 6px;
-  }
+  .manage-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border-light); border-radius: 8px; margin-bottom: 6px; }
   .manage-item .mi-icon { font-size: 20px; }
   .manage-item .mi-name { flex: 1; font-weight: 700; font-size: 14px; }
-  .manage-item .mi-del {
-    padding: 4px 10px;
-    border: 1px solid #fecaca;
-    border-radius: 6px;
-    background: #fff;
-    color: var(--danger);
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 700;
-    font-family: inherit;
-  }
+  .manage-item .mi-del { padding: 4px 10px; border: 1px solid #fecaca; border-radius: 6px; background: #fff; color: var(--danger); cursor: pointer; font-size: 12px; font-weight: 700; font-family: inherit; }
   .manage-item .mi-del:hover { background: #fef2f2; }
   .add-instrument-row { display: flex; gap: 8px; margin-top: 12px; }
   .add-instrument-row input { flex: 1; }
-  .add-instrument-row button {
-    padding: 10px 16px;
-    border: none;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: inherit;
-  }
+  .add-instrument-row button { padding: 10px 16px; border: none; background: var(--accent); color: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 700; font-family: inherit; }
 
-  .notif-container {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-width: 400px;
-  }
-  .notif {
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    animation: notifIn 0.3s ease;
-  }
+  .notif-container { position: fixed; top: 16px; right: 16px; z-index: 200; display: flex; flex-direction: column; gap: 8px; max-width: 400px; }
+  .notif { padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.1); animation: notifIn 0.3s ease; }
   .notif.success { background: #f0fdf4; border-left: 4px solid var(--success); color: #166534; }
   .notif.error { background: #fef2f2; border-left: 4px solid var(--danger); color: #991b1b; }
   .notif.cancel { background: #fefce8; border-left: 4px solid var(--warning); color: #854d0e; }
   .notif.info { background: #eff6ff; border-left: 4px solid var(--accent); color: #1e40af; }
-  @keyframes notifIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes notifIn { from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)} }
 
   .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
   .empty-state .icon { font-size: 36px; margin-bottom: 8px; }
 
-  @media (max-width: 720px) {
-    .stats-row { flex-direction: column; }
-    .header { flex-direction: column; }
-    .settings-bar { align-items: stretch; }
-    .manage-link { margin-left: 0; }
-  }
+  @media(max-width:720px){ .stats-row{flex-direction:column} .header{flex-direction:column} .settings-bar{align-items:stretch} .manage-link{margin-left:0} }
 </style>
 </head>
 <body>
 <div class="container">
   <div class="notif-container" id="notifContainer"></div>
-
-  <div class="status-banner loading" id="statusBanner">
-    <div class="status-dot blue" id="statusDot"></div>
-    <span id="statusText">Connecting to database...</span>
-  </div>
+  <div class="status-banner loading" id="statusBanner"><div class="status-dot blue" id="statusDot"></div><span id="statusText">Connecting to database...</span></div>
 
   <div class="settings-bar">
-    <label for="webhookInput">Teams Workflow Webhook URL:</label>
+    <label for="webhookInput">Teams Webhook URL:</label>
     <input id="webhookInput" placeholder="Paste your Teams Workflow webhook URL here" />
     <button onclick="saveWebhook()">Save</button>
     <span class="manage-link" onclick="openManage()">⚙ Manage Instruments</span>
   </div>
 
-  <div class="instrument-selector">
-    <h2>Select Instrument</h2>
-    <div class="instrument-tabs" id="instrumentTabs"></div>
-  </div>
+  <div class="instrument-selector"><h2>Select Instrument</h2><div class="instrument-tabs" id="instrumentTabs"></div></div>
 
   <div class="header">
     <div>
       <h1>🔬 <span id="currentInstrumentName">Instrument Booking</span></h1>
-      <div class="subtitle">24-hour calendar · shared instrument tabs · booking / login / logout / cancel · Teams workflow notifications</div>
+      <div class="subtitle">15-min intervals · shared instruments · login / logout / cancel · Teams notifications</div>
     </div>
     <div class="week-nav">
       <button onclick="changeWeek(-1)">‹ Prev</button>
@@ -499,663 +188,341 @@
     <div class="stat-card"><span class="stat-num" id="statActive">0</span><span class="stat-label">In Use Now</span></div>
   </div>
 
-  <div class="calendar-wrap">
-    <div class="calendar-grid" id="calendarGrid"></div>
-  </div>
-
+  <div class="calendar-wrap"><div class="calendar-grid" id="calendarGrid"></div></div>
   <div id="listSection"></div>
 </div>
 
-<div class="overlay" id="createOverlay" onclick="closeModal('create')">
-  <div class="modal" onclick="event.stopPropagation()">
-    <h2>📅 New Booking</h2>
-    <div class="modal-date" id="createDate"></div>
-    <label>Name *</label>
-    <input id="inputName" placeholder="Enter your name" />
-    <label>Purpose</label>
-    <input id="inputPurpose" placeholder="Brief description (optional)" />
-    <div class="time-row">
-      <div>
-        <label>Start Time</label>
-        <select id="selectStart" onchange="checkConflict()"></select>
-      </div>
-      <span class="time-sep">→</span>
-      <div>
-        <label>End Time</label>
-        <select id="selectEnd" onchange="checkConflict()"></select>
-      </div>
-    </div>
-    <div id="conflictMsg" class="conflict-msg" style="display:none">⚠️ Time conflict. This slot overlaps an existing booking.</div>
-    <div class="modal-btns">
-      <button class="btn btn-secondary" onclick="closeModal('create')">Cancel</button>
-      <button class="btn btn-primary" onclick="confirmCreate()">Confirm Booking</button>
-    </div>
-  </div>
-</div>
+<div class="overlay" id="createOverlay" onclick="closeModal('create')"><div class="modal" onclick="event.stopPropagation()">
+  <h2>📅 New Booking</h2><div class="modal-date" id="createDate"></div>
+  <label>Name *</label><input id="inputName" placeholder="Enter your name" />
+  <label>Purpose</label><input id="inputPurpose" placeholder="Brief description (optional)" />
+  <div class="time-row"><div><label>Start Time</label><select id="selectStart" onchange="checkConflict()"></select></div><span class="time-sep">→</span><div><label>End Time</label><select id="selectEnd" onchange="checkConflict()"></select></div></div>
+  <div id="conflictMsg" class="conflict-msg" style="display:none">⚠️ Time conflict. This slot overlaps an existing booking.</div>
+  <div class="modal-btns"><button class="btn btn-secondary" onclick="closeModal('create')">Cancel</button><button class="btn btn-primary" onclick="confirmCreate()">Confirm Booking</button></div>
+</div></div>
 
-<div class="overlay" id="detailOverlay" onclick="closeModal('detail')">
-  <div class="modal" onclick="event.stopPropagation()">
-    <h2>📋 Booking Details</h2>
-    <div class="detail-card">
-      <div class="detail-banner" id="detailBanner"></div>
-      <div class="detail-body" id="detailBody"></div>
-    </div>
-    <div class="modal-btns" id="detailBtns"></div>
-    <div class="cancel-note">Each action sends a notification to the Teams workflow channel.</div>
-  </div>
-</div>
+<div class="overlay" id="detailOverlay" onclick="closeModal('detail')"><div class="modal" onclick="event.stopPropagation()">
+  <h2>📋 Booking Details</h2>
+  <div class="detail-card"><div class="detail-banner" id="detailBanner"></div><div class="detail-body" id="detailBody"></div></div>
+  <div class="modal-btns" id="detailBtns"></div>
+  <div class="cancel-note">Each action sends a notification to Teams.</div>
+</div></div>
 
-<div class="overlay" id="manageOverlay" onclick="closeModal('manage')">
-  <div class="modal" onclick="event.stopPropagation()">
-    <h2>⚙ Manage Instruments</h2>
-    <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Add or remove instruments. Everyone shares the same list through Firebase.</p>
-    <div class="manage-list" id="manageList"></div>
-    <div class="add-instrument-row">
-      <input id="newInstrumentName" placeholder="New instrument name (e.g. SEM, XRD)" />
-      <button onclick="addInstrument()">Add</button>
-    </div>
-    <div class="modal-btns" style="margin-top:20px">
-      <button class="btn btn-secondary" onclick="closeModal('manage')">Close</button>
-    </div>
-  </div>
-</div>
+<div class="overlay" id="manageOverlay" onclick="closeModal('manage')"><div class="modal" onclick="event.stopPropagation()">
+  <h2>⚙ Manage Instruments</h2>
+  <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Add or remove instruments. Shared across all users.</p>
+  <div class="manage-list" id="manageList"></div>
+  <div class="add-instrument-row"><input id="newInstrumentName" placeholder="New instrument name (e.g. SEM, XRD)" /><button onclick="addInstrument()">Add</button></div>
+  <div class="modal-btns" style="margin-top:20px"><button class="btn btn-secondary" onclick="closeModal('manage')">Close</button></div>
+</div></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-// ================================
-// Firebase configuration
-// Replace with your own project if needed
-// ================================
-const firebaseConfig = {
+// ================================================================
+// Firebase
+// ================================================================
+firebase.initializeApp({
   apiKey: "AIzaSyDjO9Zy3gnbyjxOWfKN3oWu-ysX__N7JOA",
   authDomain: "time-slot-b5697.firebaseapp.com",
   databaseURL: "https://time-slot-b5697-default-rtdb.firebaseio.com",
   projectId: "time-slot-b5697",
   storageBucket: "time-slot-b5697.firebasestorage.app",
   messagingSenderId: "400395220956",
-  appId: "1:400395220956:web:f006eaf5181fa4e757c119",
-  measurementId: "G-K63Z5R550T"
-};
-
-firebase.initializeApp(firebaseConfig);
+  appId: "1:400395220956:web:f006eaf5181fa4e757c119"
+});
 const db = firebase.database();
 
-// ================================
-// App state
-// ================================
-const HOURS = Array.from({ length: 25 }, (_, i) => i); // 00 to 24
-const SLOT_HOURS = Array.from({ length: 24 }, (_, i) => i); // booking starts 00..23
-const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const USER_COLORS = ['#3b82f6','#ef4444','#14b8a6','#8b5cf6','#f59e0b','#ec4899','#06b6d4','#f97316'];
-const INSTRUMENT_ICONS = ['🔬','🧪','📡','⚗️','🔭','💉','🧫','🔩','📐','🛠️'];
+// ================================================================
+// 15-minute time system
+// Times stored as decimal hours: 9.25 = 09:15, 14.75 = 14:45
+// ================================================================
+const SLOT_PX = 20;
+const QUARTERS = Array.from({length:96},(_,i)=>i*0.25); // 0, 0.25 ... 23.75
+const END_QUARTERS = [...QUARTERS.slice(1), 24]; // 0.25 ... 24
 
-let instruments = [];
-let currentInstrument = null;
-let bookings = [];
-let weekOffset = 0;
-let currentModalDate = null;
-let currentDetailBooking = null;
-let webhookUrl = localStorage.getItem('teams-webhook-url') || '';
-let bookingsRef = null;
+function t2s(t) { const h=Math.floor(t),m=Math.round((t-h)*60); return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`; }
 
-document.getElementById('webhookInput').value = webhookUrl;
+// Backward compat: old bookings use startHour/endHour (integers)
+function bS(b) { return b.startTime!==undefined?b.startTime:b.startHour; }
+function bE(b) { return b.endTime!==undefined?b.endTime:b.endHour; }
 
-// ================================
+// ================================================================
+// State
+// ================================================================
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const UCOL=['#3b82f6','#ef4444','#14b8a6','#8b5cf6','#f59e0b','#ec4899','#06b6d4','#f97316'];
+const ICONS=['🔬','🧪','📡','⚗️','🔭','💉','🧫','🔩','📐','🛠️'];
+
+let instruments=[],currentInstrument=null,bookings=[],weekOffset=0;
+let currentModalDate=null,currentDetailBooking=null;
+let webhookUrl=localStorage.getItem('teams-webhook-url')||'';
+let bRef=null;
+document.getElementById('webhookInput').value=webhookUrl;
+
+// ================================================================
 // Firebase listeners
-// ================================
-db.ref('instruments').on('value', (snap) => {
-  const data = snap.val();
-  instruments = [];
-
-  if (data) {
-    Object.keys(data).forEach(id => instruments.push({ id, ...data[id] }));
-  }
-
-  if (instruments.length === 0) {
-    const defaults = [
-      { name: 'SEM', icon: '🔬' },
-      { name: 'XRD', icon: '📡' },
-      { name: 'NMR', icon: '🧪' }
-    ];
-    defaults.forEach(item => db.ref('instruments').push(item));
+// ================================================================
+db.ref('instruments').on('value',snap=>{
+  const d=snap.val(); instruments=[];
+  if(d) Object.keys(d).forEach(id=>instruments.push({id,...d[id]}));
+  if(!instruments.length){
+    [{name:'SEM',icon:'🔬'},{name:'XRD',icon:'📡'},{name:'NMR',icon:'🧪'}].forEach(x=>db.ref('instruments').push(x));
     return;
   }
-
-  if (!currentInstrument || !instruments.find(i => i.id === currentInstrument)) {
-    currentInstrument = instruments[0].id;
-  }
-
-  renderInstrumentTabs();
-  listenBookings();
+  if(!currentInstrument||!instruments.find(i=>i.id===currentInstrument)) currentInstrument=instruments[0].id;
+  renderTabs(); listenBookings();
 });
+db.ref('.info/connected').on('value',s=>setStatus(s.val()?'connected':'disconnected'));
+db.ref('settings/webhookUrl').on('value',s=>{if(s.val()){webhookUrl=s.val();localStorage.setItem('teams-webhook-url',webhookUrl);document.getElementById('webhookInput').value=webhookUrl;}});
 
-db.ref('.info/connected').on('value', (snap) => {
-  setStatus(snap.val() ? 'connected' : 'disconnected');
-});
-
-db.ref('settings/webhookUrl').on('value', (snap) => {
-  const sharedUrl = snap.val();
-  if (sharedUrl) {
-    webhookUrl = sharedUrl;
-    localStorage.setItem('teams-webhook-url', sharedUrl);
-    document.getElementById('webhookInput').value = sharedUrl;
-  }
-});
-
-function listenBookings() {
-  if (bookingsRef) bookingsRef.off();
-  if (!currentInstrument) return;
-
-  bookingsRef = db.ref(`bookings/${currentInstrument}`);
-  bookingsRef.on('value', (snap) => {
-    const data = snap.val();
-    bookings = [];
-    if (data) {
-      Object.keys(data).forEach(id => bookings.push({ id, ...data[id] }));
-    }
-    render();
-  }, (err) => {
-    console.error(err);
-    setStatus('disconnected');
-  });
+function listenBookings(){
+  if(bRef)bRef.off(); if(!currentInstrument)return;
+  bRef=db.ref(`bookings/${currentInstrument}`);
+  bRef.on('value',snap=>{const d=snap.val();bookings=[];if(d)Object.keys(d).forEach(id=>bookings.push({id,...d[id]}));render();},
+  err=>{console.error(err);setStatus('disconnected');});
 }
 
-// ================================
-// UI helpers
-// ================================
-function fmtDate(d) {
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+// ================================================================
+// Helpers
+// ================================================================
+function fmtDate(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function hcol(n){let h=0;for(let i=0;i<n.length;i++)h=n.charCodeAt(i)+((h<<5)-h);return UCOL[Math.abs(h)%UCOL.length];}
+function weekDates(off){const now=new Date(),day=now.getDay(),mon=new Date(now);mon.setHours(0,0,0,0);mon.setDate(now.getDate()-((day===0?7:day)-1)+off*7);return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});}
+function isToday(d){return fmtDate(d)===fmtDate(new Date());}
+function notify(m,t='success'){const c=document.getElementById('notifContainer'),el=document.createElement('div');el.className=`notif ${t}`;el.textContent=m;c.appendChild(el);setTimeout(()=>el.remove(),4500);}
+function setStatus(s){
+  document.getElementById('statusBanner').className='status-banner '+(s==='connected'?'connected':s==='disconnected'?'disconnected':'loading');
+  document.getElementById('statusDot').className='status-dot '+(s==='connected'?'green':s==='disconnected'?'red':'blue');
+  document.getElementById('statusText').textContent=s==='connected'?'Connected — real-time sync active':s==='disconnected'?'Disconnected — check internet or Firebase':'Connecting...';
 }
+function sCol(s){return s==='active'?'#22c55e':s==='finished'?'#94a3b8':s==='cancelled'?'#ef4444':'#3b82f6';}
+function sLbl(s){return s==='active'?'ACTIVE':s==='finished'?'FINISHED':s==='cancelled'?'CANCELLED':'BOOKED';}
 
-function fmtTime(h) {
-  return `${String(h).padStart(2,'0')}:00`;
-}
-
-function escHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s || '';
-  return d.innerHTML;
-}
-
-function hashColor(name) {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
-  return USER_COLORS[Math.abs(h) % USER_COLORS.length];
-}
-
-function getWeekDates(offset) {
-  const now = new Date();
-  const day = now.getDay();
-  const monday = new Date(now);
-  monday.setHours(0,0,0,0);
-  monday.setDate(now.getDate() - ((day === 0 ? 7 : day) - 1) + offset * 7);
-  return Array.from({ length: 7 }, (_, i) => {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    return d;
-  });
-}
-
-function isToday(d) {
-  return fmtDate(d) === fmtDate(new Date());
-}
-
-function notify(msg, type = 'success') {
-  const container = document.getElementById('notifContainer');
-  const el = document.createElement('div');
-  el.className = `notif ${type}`;
-  el.textContent = msg;
-  container.appendChild(el);
-  setTimeout(() => el.remove(), 4500);
-}
-
-function setStatus(state) {
-  const banner = document.getElementById('statusBanner');
-  const dot = document.getElementById('statusDot');
-  const text = document.getElementById('statusText');
-
-  banner.className = 'status-banner ' + (state === 'connected' ? 'connected' : state === 'disconnected' ? 'disconnected' : 'loading');
-  dot.className = 'status-dot ' + (state === 'connected' ? 'green' : state === 'disconnected' ? 'red' : 'blue');
-  text.textContent = state === 'connected'
-    ? 'Connected — real-time sync active'
-    : state === 'disconnected'
-    ? 'Disconnected — check your internet or Firebase rules'
-    : 'Connecting to database...';
-}
-
-function statusColor(status) {
-  if (status === 'active') return '#22c55e';
-  if (status === 'finished') return '#94a3b8';
-  if (status === 'cancelled') return '#ef4444';
-  return '#3b82f6';
-}
-
-function statusLabel(status) {
-  if (status === 'active') return 'ACTIVE';
-  if (status === 'finished') return 'FINISHED';
-  if (status === 'cancelled') return 'CANCELLED';
-  return 'BOOKED';
-}
-
-// ================================
-// Teams workflow webhook
-// This workflow requires Adaptive Card or Message Card payload
-// ================================
-function saveWebhook() {
-  webhookUrl = document.getElementById('webhookInput').value.trim();
-  localStorage.setItem('teams-webhook-url', webhookUrl);
-  db.ref('settings/webhookUrl').set(webhookUrl);
-  notify('Webhook URL saved', 'success');
-}
-
-async function sendTeamsMessage(action, booking) {
-  if (!webhookUrl) return;
-
-  const instrumentName = instruments.find(i => i.id === currentInstrument)?.name || 'Unknown';
-  const actionTitle = {
-    booked: 'New Booking',
-    login: 'Login (Start)',
-    logout: 'Logout (Finish)',
-    cancel: 'Booking Cancelled'
-  }[action] || action;
-
-  const actionColor = {
-    booked: 'Accent',
-    login: 'Good',
-    logout: 'Warning',
-    cancel: 'Attention'
-  }[action] || 'Accent';
-
-  const payload = {
-    type: 'message',
-    attachments: [
-      {
-        contentType: 'application/vnd.microsoft.card.adaptive',
-        content: {
-          '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
-          type: 'AdaptiveCard',
-          version: '1.4',
-          body: [
-            {
-              type: 'TextBlock',
-              size: 'Large',
-              weight: 'Bolder',
-              text: `🔬 ${instrumentName} — ${actionTitle}`,
-              wrap: true,
-              color: actionColor
-            },
-            {
-              type: 'FactSet',
-              facts: [
-                { title: 'User', value: booking.user || '-' },
-                { title: 'Date', value: booking.date || '-' },
-                { title: 'Time', value: `${fmtTime(booking.startHour)} - ${fmtTime(booking.endHour)}` },
-                { title: 'Status', value: statusLabel(booking.status || 'booked') },
-                { title: 'Purpose', value: booking.purpose || '-' }
-              ]
-            },
-            ...(booking.loginTime ? [{ type: 'TextBlock', text: `Login time: ${new Date(booking.loginTime).toLocaleString()}`, wrap: true, spacing: 'Small' }] : []),
-            ...(booking.logoutTime ? [{ type: 'TextBlock', text: `Logout time: ${new Date(booking.logoutTime).toLocaleString()}`, wrap: true, spacing: 'Small' }] : []),
-            ...(booking.cancelledAt ? [{ type: 'TextBlock', text: `Cancelled at: ${new Date(booking.cancelledAt).toLocaleString()}`, wrap: true, spacing: 'Small' }] : [])
-          ]
-        }
-      }
+// ================================================================
+// Teams webhook
+// ================================================================
+function saveWebhook(){webhookUrl=document.getElementById('webhookInput').value.trim();localStorage.setItem('teams-webhook-url',webhookUrl);db.ref('settings/webhookUrl').set(webhookUrl);notify('Webhook URL saved');}
+async function sendTeams(action,bk){
+  if(!webhookUrl)return;
+  const inst=instruments.find(i=>i.id===currentInstrument)?.name||'?';
+  const titles={booked:'New Booking',login:'Login (Start)',logout:'Logout (Finish)',cancel:'Booking Cancelled'};
+  const colors={booked:'Accent',login:'Good',logout:'Warning',cancel:'Attention'};
+  const payload={type:'message',attachments:[{contentType:'application/vnd.microsoft.card.adaptive',content:{
+    '$schema':'http://adaptivecards.io/schemas/adaptive-card.json',type:'AdaptiveCard',version:'1.4',
+    body:[
+      {type:'TextBlock',size:'Large',weight:'Bolder',text:`🔬 ${inst} — ${titles[action]||action}`,wrap:true,color:colors[action]||'Accent'},
+      {type:'FactSet',facts:[
+        {title:'User',value:bk.user||'-'},{title:'Date',value:bk.date||'-'},
+        {title:'Time',value:`${t2s(bS(bk))} - ${t2s(bE(bk))}`},
+        {title:'Status',value:sLbl(bk.status||'booked')},{title:'Purpose',value:bk.purpose||'-'}
+      ]},
+      ...(bk.loginTime?[{type:'TextBlock',text:`Login: ${new Date(bk.loginTime).toLocaleString()}`,wrap:true,spacing:'Small'}]:[]),
+      ...(bk.logoutTime?[{type:'TextBlock',text:`Logout: ${new Date(bk.logoutTime).toLocaleString()}`,wrap:true,spacing:'Small'}]:[]),
+      ...(bk.cancelledAt?[{type:'TextBlock',text:`Cancelled: ${new Date(bk.cancelledAt).toLocaleString()}`,wrap:true,spacing:'Small'}]:[])
     ]
-  };
-
-  try {
-    const res = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (!res.ok) {
-      const text = await res.text().catch(() => '');
-      console.error('Teams workflow error:', res.status, text);
-      notify('Teams notification failed. Check webhook or workflow config.', 'error');
-    }
-  } catch (e) {
-    console.error('Teams workflow fetch error:', e);
-    notify('Teams notification request failed.', 'error');
-  }
+  }}]};
+  try{const r=await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!r.ok)notify('Teams notification failed','error');}catch(e){console.error(e);notify('Teams request failed','error');}
 }
 
-// ================================
-// Instrument tabs and management
-// ================================
-function renderInstrumentTabs() {
-  const container = document.getElementById('instrumentTabs');
-  container.innerHTML = '';
-
-  instruments.forEach(inst => {
-    const active = inst.id === currentInstrument ? ' active' : '';
-    container.innerHTML += `<button class="instrument-tab${active}" onclick="switchInstrument('${inst.id}')">
-      <span>${inst.icon || '🔬'}</span>
-      <span>${escHtml(inst.name)}</span>
-    </button>`;
-  });
-
-  const current = instruments.find(i => i.id === currentInstrument);
-  document.getElementById('currentInstrumentName').textContent = current ? current.name : 'Instrument Booking';
+// ================================================================
+// Instrument tabs
+// ================================================================
+function renderTabs(){
+  const c=document.getElementById('instrumentTabs');c.innerHTML='';
+  instruments.forEach(i=>{c.innerHTML+=`<button class="instrument-tab${i.id===currentInstrument?' active':''}" onclick="switchInst('${i.id}')"><span>${i.icon||'🔬'}</span><span>${esc(i.name)}</span></button>`;});
+  const cur=instruments.find(i=>i.id===currentInstrument);
+  document.getElementById('currentInstrumentName').textContent=cur?cur.name:'Instrument Booking';
 }
-
-function switchInstrument(id) {
-  currentInstrument = id;
-  renderInstrumentTabs();
-  listenBookings();
-}
-
-function openManage() {
-  const list = document.getElementById('manageList');
-  list.innerHTML = '';
-
-  instruments.forEach(inst => {
-    list.innerHTML += `<div class="manage-item">
-      <span class="mi-icon">${inst.icon || '🔬'}</span>
-      <span class="mi-name">${escHtml(inst.name)}</span>
-      <button class="mi-del" onclick="removeInstrument('${inst.id}')">Remove</button>
-    </div>`;
-  });
-
+function switchInst(id){currentInstrument=id;renderTabs();listenBookings();}
+function openManage(){
+  const l=document.getElementById('manageList');l.innerHTML='';
+  instruments.forEach(i=>{l.innerHTML+=`<div class="manage-item"><span class="mi-icon">${i.icon||'🔬'}</span><span class="mi-name">${esc(i.name)}</span><button class="mi-del" onclick="rmInst('${i.id}')">Remove</button></div>`;});
   document.getElementById('manageOverlay').classList.add('open');
 }
-
-function addInstrument() {
-  const name = document.getElementById('newInstrumentName').value.trim();
-  if (!name) {
-    notify('Please enter an instrument name', 'error');
-    return;
-  }
-
-  const icon = INSTRUMENT_ICONS[instruments.length % INSTRUMENT_ICONS.length];
-  db.ref('instruments').push({ name, icon }).then(() => {
-    document.getElementById('newInstrumentName').value = '';
-    notify(`Added ${name}`, 'success');
-    setTimeout(openManage, 200);
-  });
+function addInstrument(){
+  const n=document.getElementById('newInstrumentName').value.trim();
+  if(!n){notify('Enter a name','error');return;}
+  db.ref('instruments').push({name:n,icon:ICONS[instruments.length%ICONS.length]}).then(()=>{document.getElementById('newInstrumentName').value='';notify(`Added ${n}`);setTimeout(openManage,200);});
+}
+function rmInst(id){
+  if(instruments.length<=1){notify('Must keep at least one','error');return;}
+  const i=instruments.find(x=>x.id===id);db.ref(`instruments/${id}`).remove();db.ref(`bookings/${id}`).remove();
+  notify(`Removed ${i?.name||'instrument'}`,'cancel');setTimeout(openManage,200);
 }
 
-function removeInstrument(id) {
-  if (instruments.length <= 1) {
-    notify('At least one instrument must remain', 'error');
-    return;
-  }
+// ================================================================
+// Render calendar (15-min grid)
+// ================================================================
+function render(){
+  const dates=weekDates(weekOffset);
+  const grid=document.getElementById('calendarGrid');
+  grid.innerHTML='<div class="corner-cell"></div>';
+  dates.forEach((d,i)=>{grid.innerHTML+=`<div class="day-header${isToday(d)?' today':''}"><span class="day-name">${DAYS[i]}</span><span class="day-date">${d.getDate()}</span></div>`;});
 
-  const inst = instruments.find(i => i.id === id);
-  db.ref(`instruments/${id}`).remove();
-  db.ref(`bookings/${id}`).remove();
-  notify(`Removed ${inst?.name || 'instrument'}`, 'cancel');
-  setTimeout(openManage, 200);
-}
+  const vis=bookings.filter(b=>b.status!=='cancelled');
 
-// ================================
-// Calendar rendering
-// ================================
-function render() {
-  const dates = getWeekDates(weekOffset);
-  const grid = document.getElementById('calendarGrid');
-  grid.innerHTML = '<div class="corner-cell"></div>';
+  for(let si=0;si<=96;si++){
+    const t=si*0.25;
+    const isHour=si%4===0;
+    const isLast=si===96;
 
-  dates.forEach((d, i) => {
-    const todayClass = isToday(d) ? ' today' : '';
-    grid.innerHTML += `<div class="day-header${todayClass}"><span class="day-name">${DAYS[i]}</span><span class="day-date">${d.getDate()}</span></div>`;
-  });
+    // Time label
+    let tcls='time-cell';
+    if(isHour) tcls+=' hour-start'; else tcls+=' quarter';
+    grid.innerHTML+=`<div class="${tcls}">${t2s(t)}</div>`;
 
-  const visibleBookings = bookings.filter(b => b.status !== 'cancelled');
+    dates.forEach(date=>{
+      const ds=fmtDate(date);
+      const tcol=isToday(date)?' today-col':'';
+      const hcls=isHour?' hour-start-cell':'';
 
-  HOURS.forEach((hourLabel, idx) => {
-    grid.innerHTML += `<div class="time-cell">${fmtTime(hourLabel)}</div>`;
+      if(isLast){grid.innerHTML+=`<div class="slot-cell${tcol}${hcls}" style="cursor:default"></div>`;return;}
 
-    dates.forEach(date => {
-      const dateStr = fmtDate(date);
-      const todayCls = isToday(date) ? ' today-col' : '';
+      const slotB=vis.filter(b=>b.date===ds&&t>=bS(b)&&t<bE(b));
+      const firstB=slotB.filter(b=>bS(b)===t);
+      let cc='';
+      if(!slotB.length) cc='<div class="plus">+</div>';
 
-      if (idx === 24) {
-        grid.innerHTML += `<div class="slot-cell${todayCls}" style="cursor:default;background:#fafcff"></div>`;
-        return;
-      }
-
-      const slotBookings = visibleBookings.filter(b => b.date === dateStr && idx >= b.startHour && idx < b.endHour);
-      const firstBookings = slotBookings.filter(b => b.startHour === idx);
-      let cellContent = '';
-
-      if (slotBookings.length === 0) cellContent = '<div class="plus">+</div>';
-
-      firstBookings.forEach(b => {
-        const blockHeight = Math.max((b.endHour - b.startHour) * 40 - 2, 38);
-        cellContent += `<div class="booking-block" style="background:${statusColor(b.status || 'booked')};height:${blockHeight}px;min-height:${blockHeight}px" onclick="event.stopPropagation();openDetail('${b.id}')">
-          <span class="b-user">${escHtml(b.user)}</span>
-          <span class="b-time">${fmtTime(b.startHour)}-${fmtTime(b.endHour)}</span>
-          <span class="b-status">${statusLabel(b.status || 'booked')}</span>
+      firstB.forEach(b=>{
+        const slots=(bE(b)-bS(b))*4;
+        const h=Math.max(slots*SLOT_PX-2,SLOT_PX-2);
+        const bg=b.status==='active'?'#22c55e':b.status==='finished'?'#94a3b8':hcol(b.user);
+        cc+=`<div class="booking-block" style="background:${bg};height:${h}px;min-height:${h}px" onclick="event.stopPropagation();openDetail('${b.id}')">
+          <span class="b-user">${esc(b.user)}</span>
+          <span class="b-time">${t2s(bS(b))}-${t2s(bE(b))}</span>
+          ${slots>=3?`<span class="b-status">${sLbl(b.status||'booked')}</span>`:''}
         </div>`;
       });
 
-      const clickHandler = slotBookings.length === 0 ? `onclick="openCreate('${dateStr}',${idx})"` : '';
-      const cursorStyle = slotBookings.length === 0 ? '' : 'cursor:default;';
-      grid.innerHTML += `<div class="slot-cell${todayCls}" style="${cursorStyle}" ${clickHandler}>${cellContent}</div>`;
+      const click=slotB.length===0?`onclick="openCreate('${ds}',${t})"`:'';
+      const cur=slotB.length===0?'':'cursor:default;';
+      grid.innerHTML+=`<div class="slot-cell${tcol}${hcls}" style="${cur}" ${click}>${cc}</div>`;
     });
-  });
-
-  const weekBookings = visibleBookings.filter(b => dates.some(d => fmtDate(d) === b.date));
-  const weekUsers = [...new Set(weekBookings.map(b => b.user))];
-  document.getElementById('statCount').textContent = weekBookings.length;
-  document.getElementById('statUsers').textContent = weekUsers.length;
-  document.getElementById('statHours').textContent = weekBookings.reduce((sum, b) => sum + (b.endHour - b.startHour), 0) + 'h';
-  document.getElementById('statActive').textContent = visibleBookings.filter(b => b.status === 'active').length;
-
-  renderInstrumentTabs();
-  renderList();
-}
-
-function renderList() {
-  const section = document.getElementById('listSection');
-  const visibleBookings = bookings.filter(b => b.status !== 'cancelled');
-
-  if (visibleBookings.length === 0) {
-    section.innerHTML = '<div class="empty-state"><div class="icon">📭</div><p>No bookings yet. Click an empty slot to get started.</p></div>';
-    return;
   }
 
-  const sorted = [...visibleBookings].sort((a, b) => a.date.localeCompare(b.date) || a.startHour - b.startHour);
-  let html = '<div class="list-section"><h3>📋 All Bookings</h3><div class="list-grid">';
+  const wkB=vis.filter(b=>dates.some(d=>fmtDate(d)===b.date));
+  document.getElementById('statCount').textContent=wkB.length;
+  document.getElementById('statUsers').textContent=[...new Set(wkB.map(b=>b.user))].length;
+  const hrs=wkB.reduce((s,b)=>s+(bE(b)-bS(b)),0);
+  document.getElementById('statHours').textContent=(hrs%1===0?hrs+'h':hrs.toFixed(1)+'h');
+  document.getElementById('statActive').textContent=vis.filter(b=>b.status==='active').length;
 
-  sorted.forEach(b => {
-    html += `<div class="list-card" onclick="openDetail('${b.id}')">
-      <div class="list-dot" style="background:${statusColor(b.status || 'booked')}"></div>
-      <div style="flex:1">
-        <div class="list-user">${escHtml(b.user)}</div>
-        <div class="list-info">${b.date} · ${fmtTime(b.startHour)}-${fmtTime(b.endHour)}</div>
-        ${b.purpose ? `<div class="list-purpose">${escHtml(b.purpose)}</div>` : ''}
-        <span class="list-status ${(b.status || 'booked')}">${statusLabel(b.status || 'booked')}</span>
-      </div>
-    </div>`;
+  renderTabs(); renderList();
+}
+
+function renderList(){
+  const sec=document.getElementById('listSection');
+  const vis=bookings.filter(b=>b.status!=='cancelled');
+  if(!vis.length){sec.innerHTML='<div class="empty-state"><div class="icon">📭</div><p>No bookings yet. Click an empty slot to get started.</p></div>';return;}
+  const sorted=[...vis].sort((a,b)=>a.date.localeCompare(b.date)||bS(a)-bS(b));
+  let h='<div class="list-section"><h3>📋 All Bookings</h3><div class="list-grid">';
+  sorted.forEach(b=>{
+    h+=`<div class="list-card" onclick="openDetail('${b.id}')"><div class="list-dot" style="background:${sCol(b.status||'booked')}"></div><div style="flex:1"><div class="list-user">${esc(b.user)}</div><div class="list-info">${b.date} · ${t2s(bS(b))}-${t2s(bE(b))}</div>${b.purpose?`<div class="list-purpose">${esc(b.purpose)}</div>`:''}<span class="list-status ${b.status||'booked'}">${sLbl(b.status||'booked')}</span></div></div>`;
   });
-
-  html += '</div></div>';
-  section.innerHTML = html;
+  h+='</div></div>';sec.innerHTML=h;
 }
 
-function changeWeek(dir) {
-  if (dir === 0) weekOffset = 0;
-  else weekOffset += dir;
-  render();
-}
+function changeWeek(d){if(d===0)weekOffset=0;else weekOffset+=d;render();}
 
-// ================================
-// Booking creation
-// ================================
-function openCreate(dateStr, hour) {
-  currentModalDate = dateStr;
-  const parts = dateStr.split('-');
-  const d = new Date(+parts[0], +parts[1] - 1, +parts[2]);
-  document.getElementById('createDate').textContent = `${DAYS[(d.getDay() + 6) % 7]}, ${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-  document.getElementById('inputName').value = '';
-  document.getElementById('inputPurpose').value = '';
+// ================================================================
+// Create booking
+// ================================================================
+function openCreate(ds,startT){
+  currentModalDate=ds;
+  const p=ds.split('-'),d=new Date(+p[0],+p[1]-1,+p[2]);
+  document.getElementById('createDate').textContent=`${DAYS[(d.getDay()+6)%7]}, ${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+  document.getElementById('inputName').value='';
+  document.getElementById('inputPurpose').value='';
 
-  const selStart = document.getElementById('selectStart');
-  const selEnd = document.getElementById('selectEnd');
-  selStart.innerHTML = SLOT_HOURS.map(h => `<option value="${h}" ${h === hour ? 'selected' : ''}>${fmtTime(h)}</option>`).join('');
-  refreshEndOptions(hour, hour + 1 <= 24 ? hour + 1 : 24);
+  const selS=document.getElementById('selectStart');
+  selS.innerHTML=QUARTERS.map(t=>`<option value="${t}"${t===startT?' selected':''}>${t2s(t)}</option>`).join('');
+  refreshEnd(startT,Math.min(startT+1,24));
 
-  document.getElementById('conflictMsg').style.display = 'none';
+  document.getElementById('conflictMsg').style.display='none';
   document.getElementById('createOverlay').classList.add('open');
-  setTimeout(() => document.getElementById('inputName').focus(), 100);
+  setTimeout(()=>document.getElementById('inputName').focus(),100);
 }
 
-function refreshEndOptions(startHour, selectedEnd) {
-  const selEnd = document.getElementById('selectEnd');
-  const endChoices = Array.from({ length: 24 - startHour }, (_, i) => startHour + i + 1);
-  selEnd.innerHTML = endChoices.map(h => `<option value="${h}" ${h === selectedEnd ? 'selected' : ''}>${fmtTime(h)}</option>`).join('');
-  if (selectedEnd && endChoices.includes(selectedEnd)) selEnd.value = selectedEnd;
+function refreshEnd(startT,selVal){
+  const selE=document.getElementById('selectEnd');
+  const opts=END_QUARTERS.filter(t=>t>startT);
+  selE.innerHTML=opts.map(t=>`<option value="${t}"${t===selVal?' selected':''}>${t2s(t)}</option>`).join('');
+  if(selVal&&opts.includes(selVal))selE.value=selVal;
+  else if(opts.length)selE.value=opts[0];
 }
 
-function checkConflict() {
-  const startHour = +document.getElementById('selectStart').value;
-  const currentEnd = +document.getElementById('selectEnd').value || Math.min(startHour + 1, 24);
-  const nextEnd = currentEnd > startHour ? currentEnd : Math.min(startHour + 1, 24);
-  refreshEndOptions(startHour, nextEnd);
-
-  const endHour = +document.getElementById('selectEnd').value;
-  const conflict = bookings.filter(b => b.status !== 'cancelled').some(b => b.date === currentModalDate && startHour < b.endHour && endHour > b.startHour);
-  document.getElementById('conflictMsg').style.display = conflict ? 'block' : 'none';
+function checkConflict(){
+  const sT=+document.getElementById('selectStart').value;
+  const curE=+document.getElementById('selectEnd').value;
+  refreshEnd(sT,curE>sT?curE:Math.min(sT+0.25,24));
+  const eT=+document.getElementById('selectEnd').value;
+  const conflict=bookings.filter(b=>b.status!=='cancelled').some(b=>b.date===currentModalDate&&sT<bE(b)&&eT>bS(b));
+  document.getElementById('conflictMsg').style.display=conflict?'block':'none';
 }
 
-function confirmCreate() {
-  const name = document.getElementById('inputName').value.trim();
-  const purpose = document.getElementById('inputPurpose').value.trim();
-  const startHour = +document.getElementById('selectStart').value;
-  const endHour = +document.getElementById('selectEnd').value;
+function confirmCreate(){
+  const name=document.getElementById('inputName').value.trim();
+  const purpose=document.getElementById('inputPurpose').value.trim();
+  const sT=+document.getElementById('selectStart').value;
+  const eT=+document.getElementById('selectEnd').value;
+  if(!name){notify('Please enter your name','error');return;}
+  if(eT<=sT){notify('End must be after start','error');return;}
+  if(bookings.filter(b=>b.status!=='cancelled').some(b=>b.date===currentModalDate&&sT<bE(b)&&eT>bS(b))){notify('Time conflict','error');return;}
 
-  if (!name) {
-    notify('Please enter your name', 'error');
-    return;
-  }
-  if (endHour <= startHour) {
-    notify('End time must be after start time', 'error');
-    return;
-  }
-
-  const conflict = bookings.filter(b => b.status !== 'cancelled').some(b => b.date === currentModalDate && startHour < b.endHour && endHour > b.startHour);
-  if (conflict) {
-    notify('Time conflict. Choose another slot.', 'error');
-    return;
-  }
-
-  const booking = {
-    date: currentModalDate,
-    startHour,
-    endHour,
-    user: name,
-    purpose,
-    status: 'booked',
-    createdAt: new Date().toISOString()
-  };
-
-  db.ref(`bookings/${currentInstrument}`).push(booking).then(() => {
-    notify(`Booked ${name} ${fmtTime(startHour)}-${fmtTime(endHour)}`, 'success');
-    sendTeamsMessage('booked', booking);
-  }).catch((err) => {
-    console.error(err);
-    notify('Failed to create booking', 'error');
-  });
-
+  const bk={date:currentModalDate,startTime:sT,endTime:eT,user:name,purpose,status:'booked',createdAt:new Date().toISOString()};
+  db.ref(`bookings/${currentInstrument}`).push(bk).then(()=>{notify(`Booked ${name} ${t2s(sT)}-${t2s(eT)}`);sendTeams('booked',bk);}).catch(()=>notify('Failed','error'));
   closeModal('create');
 }
 
-// ================================
-// Detail / state actions
-// ================================
-function openDetail(id) {
-  const booking = bookings.find(b => b.id === id);
-  if (!booking) return;
-  currentDetailBooking = booking;
+// ================================================================
+// Detail / Login / Logout / Cancel
+// ================================================================
+function openDetail(id){
+  const b=bookings.find(x=>x.id===id);if(!b)return;
+  currentDetailBooking=b;
+  const st=b.status||'booked';
+  document.getElementById('detailBanner').style.background=sCol(st);
+  const dur=bE(b)-bS(b);
+  const durStr=dur%1===0?dur+'h':dur.toFixed(2)+'h';
+  document.getElementById('detailBody').innerHTML=`
+    <div class="detail-user">${esc(b.user)}</div>
+    <div class="detail-field">📅 ${b.date}</div>
+    <div class="detail-field">🕐 ${t2s(bS(b))} - ${t2s(bE(b))} (${durStr})</div>
+    ${b.purpose?`<div class="detail-field">📝 ${esc(b.purpose)}</div>`:''}
+    <div class="detail-field">Status: <span class="list-status ${st}" style="font-size:12px">${sLbl(st)}</span></div>
+    ${b.loginTime?`<div class="detail-field">🟢 Login: ${new Date(b.loginTime).toLocaleString()}</div>`:''}
+    ${b.logoutTime?`<div class="detail-field">⚪ Logout: ${new Date(b.logoutTime).toLocaleString()}</div>`:''}`;
 
-  const status = booking.status || 'booked';
-  document.getElementById('detailBanner').style.background = statusColor(status);
-  document.getElementById('detailBody').innerHTML = `
-    <div class="detail-user">${escHtml(booking.user)}</div>
-    <div class="detail-field">📅 ${booking.date}</div>
-    <div class="detail-field">🕐 ${fmtTime(booking.startHour)} - ${fmtTime(booking.endHour)} (${booking.endHour - booking.startHour} hr)</div>
-    ${booking.purpose ? `<div class="detail-field">📝 ${escHtml(booking.purpose)}</div>` : ''}
-    <div class="detail-field">Status: <span class="list-status ${status}" style="font-size:12px">${statusLabel(status)}</span></div>
-    ${booking.loginTime ? `<div class="detail-field">🟢 Login time: ${new Date(booking.loginTime).toLocaleString()}</div>` : ''}
-    ${booking.logoutTime ? `<div class="detail-field">⚪ Logout time: ${new Date(booking.logoutTime).toLocaleString()}</div>` : ''}
-  `;
-
-  let buttons = '<button class="btn btn-secondary" onclick="closeModal(\'detail\')">Close</button>';
-  if (status === 'booked') {
-    buttons += '<button class="btn btn-success" onclick="doLogin()">Login (Start)</button>';
-    buttons += '<button class="btn btn-danger" onclick="doCancel()">Cancel</button>';
-  } else if (status === 'active') {
-    buttons += '<button class="btn btn-warning" onclick="doLogout()">Logout (Finish)</button>';
-    buttons += '<button class="btn btn-danger" onclick="doCancel()">Cancel</button>';
-  }
-  document.getElementById('detailBtns').innerHTML = buttons;
+  let btns='<button class="btn btn-secondary" onclick="closeModal(\'detail\')">Close</button>';
+  if(st==='booked'){btns+='<button class="btn btn-success" onclick="doLogin()">Login (Start)</button><button class="btn btn-danger" onclick="doCancel()">Cancel</button>';}
+  else if(st==='active'){btns+='<button class="btn btn-warning" onclick="doLogout()">Logout (Finish)</button><button class="btn btn-danger" onclick="doCancel()">Cancel</button>';}
+  document.getElementById('detailBtns').innerHTML=btns;
   document.getElementById('detailOverlay').classList.add('open');
 }
 
-function doLogin() {
-  const b = currentDetailBooking;
-  if (!b) return;
-
-  const patch = { status: 'active', loginTime: new Date().toISOString() };
-  db.ref(`bookings/${currentInstrument}/${b.id}`).update(patch).then(() => {
-    notify(`${b.user} started using the instrument`, 'info');
-    sendTeamsMessage('login', { ...b, ...patch });
-  }).catch((err) => {
-    console.error(err);
-    notify('Failed to update status', 'error');
-  });
-
+function doLogin(){
+  const b=currentDetailBooking;if(!b)return;
+  const p={status:'active',loginTime:new Date().toISOString()};
+  db.ref(`bookings/${currentInstrument}/${b.id}`).update(p).then(()=>{notify(`${b.user} started`,'info');sendTeams('login',{...b,...p});}).catch(()=>notify('Failed','error'));
+  closeModal('detail');
+}
+function doLogout(){
+  const b=currentDetailBooking;if(!b)return;
+  const p={status:'finished',logoutTime:new Date().toISOString()};
+  db.ref(`bookings/${currentInstrument}/${b.id}`).update(p).then(()=>{notify(`${b.user} finished`);sendTeams('logout',{...b,...p});}).catch(()=>notify('Failed','error'));
+  closeModal('detail');
+}
+function doCancel(){
+  const b=currentDetailBooking;if(!b)return;
+  const p={status:'cancelled',cancelledAt:new Date().toISOString()};
+  db.ref(`bookings/${currentInstrument}/${b.id}`).update(p).then(()=>{notify(`${b.user}'s booking cancelled`,'cancel');sendTeams('cancel',{...b,...p});}).catch(()=>notify('Failed','error'));
   closeModal('detail');
 }
 
-function doLogout() {
-  const b = currentDetailBooking;
-  if (!b) return;
-
-  const patch = { status: 'finished', logoutTime: new Date().toISOString() };
-  db.ref(`bookings/${currentInstrument}/${b.id}`).update(patch).then(() => {
-    notify(`${b.user} finished using the instrument`, 'success');
-    sendTeamsMessage('logout', { ...b, ...patch });
-  }).catch((err) => {
-    console.error(err);
-    notify('Failed to update status', 'error');
-  });
-
-  closeModal('detail');
-}
-
-function doCancel() {
-  const b = currentDetailBooking;
-  if (!b) return;
-
-  const patch = { status: 'cancelled', cancelledAt: new Date().toISOString() };
-  db.ref(`bookings/${currentInstrument}/${b.id}`).update(patch).then(() => {
-    notify(`${b.user}'s booking was cancelled`, 'cancel');
-    sendTeamsMessage('cancel', { ...b, ...patch });
-  }).catch((err) => {
-    console.error(err);
-    notify('Failed to cancel booking', 'error');
-  });
-
-  closeModal('detail');
-}
-
-// ================================
-// Modal helpers
-// ================================
-function closeModal(type) {
-  const map = {
-    create: 'createOverlay',
-    detail: 'detailOverlay',
-    manage: 'manageOverlay'
-  };
-  document.getElementById(map[type]).classList.remove('open');
-}
+function closeModal(t){document.getElementById({create:'createOverlay',detail:'detailOverlay',manage:'manageOverlay'}[t]).classList.remove('open');}
 
 render();
 </script>
